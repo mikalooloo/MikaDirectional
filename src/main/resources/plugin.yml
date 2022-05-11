@@ -1,0 +1,12 @@
+name: MikaDirectional
+version: '${project.version}'
+main: io.github.mikalooloo.mikadirectional.MikaDirectional
+api-version: 1.18
+authors: [ Mikalooloo ]
+description: This plugin adds user-toggleable coordinates and direction in the action bar.
+website: https://mikalooloo.github.io/
+commands:
+  mikadirectional:
+    description: Displays help
+    usage: /md [page]
+    aliases: ['/md']
