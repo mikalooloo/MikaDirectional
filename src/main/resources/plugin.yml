@@ -7,6 +7,6 @@ description: This plugin adds user-toggleable coordinates and direction in the a
 website: https://mikalooloo.github.io/
 commands:
   mikadirectional:
-    description: Displays help
-    usage: /md [page]
-    aliases: ['/md']
+    description: Displays commands
+    usage: /md
+    aliases: [md]
