@@ -1,10 +1,14 @@
 package io.github.mikalooloo.mikadirectional.events;
 
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
+import io.github.mikalooloo.mikadirectional.config.UserHandler;
 
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
  * DirectionalEvents listens for and actiavtes upon player movement events.
@@ -25,5 +29,16 @@ public class DirectionalEvents implements Listener {
         if (event.hasChangedPosition()) {
             plugin.dUtil.sendUpdate(event.getPlayer(), event.getTo());
         }
+    }
+
+    @EventHandler
+    public void joiningUser(PlayerJoinEvent event) {
+        plugin.addUser(event.getPlayer().getUniqueId());
+    }
+
+    @EventHandler
+    public void leavingUser(PlayerQuitEvent event) {
+        plugin.users.get(event.getPlayer().getUniqueId()).saveUserFile();
+        plugin.users.remove(event.getPlayer().getUniqueId());
     }
 }

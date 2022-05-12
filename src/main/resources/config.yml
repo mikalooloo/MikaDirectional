@@ -1,0 +1,11 @@
+# Mika's Directional
+# https://mikalooloo.github.io/
+
+# Whether this feature is automatically enabled upon joining
+Coords: true
+Direction: true
+
+# The color of the labels ("X:", "Y:", "Z:", "Facing:")
+LabelsColor: '#AAAAAA'
+# The color of the values (the numbers and direction name)
+ValuesColor: '#FFFFFF'

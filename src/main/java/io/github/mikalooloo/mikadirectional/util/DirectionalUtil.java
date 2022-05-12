@@ -2,7 +2,9 @@ package io.github.mikalooloo.mikadirectional.util;
 // My classes
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
 // Bukkit classes
+import io.github.mikalooloo.mikadirectional.config.UserHandler;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 // Other classes
@@ -81,14 +83,24 @@ public class DirectionalUtil {
      */
     public void sendUpdate(Player receiver, Location location) {
         // check what configs player has set
-        TextComponent message = Component.text("X: ", NamedTextColor.GRAY)
-                .append(Component.text(Integer.toString(location.getBlockX()), NamedTextColor.WHITE))
-                .append(Component.text("   Y: ", NamedTextColor.GRAY))
-                .append(Component.text(Integer.toString(location.getBlockY()), NamedTextColor.WHITE))
-                .append(Component.text("   Z: ", NamedTextColor.GRAY))
-                .append(Component.text(Integer.toString(location.getBlockZ()), NamedTextColor.WHITE))
-                .append(Component.text("   Facing: ", NamedTextColor.GRAY))
-                .append(Component.text(getDirection(location.getYaw()), NamedTextColor.WHITE));
-        updateActionBar(receiver, message);
+        UserHandler user = plugin.users.get(receiver.getUniqueId());
+        TextComponent message = Component.text("");
+
+        if (user.getCoords()) {
+            message = message.append(Component.text("X: ").color(TextColor.fromHexString(user.getLabelsColor())))
+                .append(Component.text(Integer.toString(location.getBlockX())).color(TextColor.fromHexString(user.getValuesColor())))
+                .append(Component.text("   Y: ").color(TextColor.fromHexString(user.getLabelsColor())))
+                .append(Component.text(Integer.toString(location.getBlockY())).color(TextColor.fromHexString(user.getValuesColor())))
+                .append(Component.text("   Z: ").color(TextColor.fromHexString(user.getLabelsColor())))
+                .append(Component.text(Integer.toString(location.getBlockZ())).color(TextColor.fromHexString(user.getValuesColor())));
+        }
+        if (user.getDirection()) {
+            message = message.append(Component.text("   Facing: ").color(TextColor.fromHexString(user.getLabelsColor())))
+                    .append(Component.text(getDirection(location.getYaw())).color(TextColor.fromHexString(user.getValuesColor())));
+        }
+
+        if (message.equals(Component.text(""))) {
+            updateActionBar(receiver, message);
+        }
     }
 }
