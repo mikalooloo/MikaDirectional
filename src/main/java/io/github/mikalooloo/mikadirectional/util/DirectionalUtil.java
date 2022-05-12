@@ -99,7 +99,7 @@ public class DirectionalUtil {
                     .append(Component.text(getDirection(location.getYaw())).color(TextColor.fromHexString(user.getValuesColor())));
         }
 
-        if (message.equals(Component.text(""))) {
+        if (!message.equals(Component.text(""))) {
             updateActionBar(receiver, message);
         }
     }

@@ -35,7 +35,11 @@ public final class MikaDirectional extends JavaPlugin {
         // Create player folder
         userFolderPath  = getDataFolder() + userFolderPath;
         File file = new File(userFolderPath);
-        file.mkdirs();
+        try {
+            file.mkdirs();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

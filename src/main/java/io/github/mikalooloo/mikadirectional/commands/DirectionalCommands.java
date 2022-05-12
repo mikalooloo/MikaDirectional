@@ -50,7 +50,7 @@ public class DirectionalCommands implements CommandExecutor {
                         user.toggleCoords();
                         user.toggleDirection();
                         sender.sendMessage("Coords are now " + (user.getCoords() ? "enabled" : "disabled" +
-                                "and direction is now " + (user.getDirection() ? "enabled!" : "disabled!")));
+                                " and direction is now " + (user.getDirection() ? "enabled!" : "disabled!")));
                     }
                     else if (args[1].equalsIgnoreCase("coords")) {
                         // toggle coords

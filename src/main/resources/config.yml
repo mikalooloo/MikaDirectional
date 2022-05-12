@@ -2,10 +2,13 @@
 # https://mikalooloo.github.io/
 
 # Whether this feature is automatically enabled upon joining
+# default: true
 Coords: true
 Direction: true
 
 # The color of the labels ("X:", "Y:", "Z:", "Facing:")
+# default: '#AAAAAA' (gray)
 LabelsColor: '#AAAAAA'
 # The color of the values (the numbers and direction name)
+# default: '#FFFFFF' (white)
 ValuesColor: '#FFFFFF'

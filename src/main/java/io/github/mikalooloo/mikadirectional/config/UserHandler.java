@@ -17,10 +17,10 @@ public class UserHandler {
     final private File userFile;
     final private YamlConfiguration userConfig;
     // Config Settings
-    private boolean coords = true;
-    private boolean direction = true;
-    private String labelsColor = "WHITE";
-    private String valuesColor = "GRAY";
+    private boolean coords;
+    private boolean direction;
+    private String labelsColor;
+    private String valuesColor;
 
     // Constructor
     public UserHandler(MikaDirectional plugin, UUID user) {
@@ -34,26 +34,32 @@ public class UserHandler {
     // SETTERS
     public void setCoords(boolean coords) {
         this.coords = coords;
+        userConfig.set("Coords", this.coords);
     }
 
     public void toggleCoords() {
         coords = !coords;
+        userConfig.set("Coords", coords);
     }
 
-    public void setEnableDirection(boolean direction) {
+    public void setDirection(boolean direction) {
         this.direction = direction;
+        userConfig.set("Direction", this.direction);
     }
 
     public void toggleDirection() {
         direction = !direction;
+        userConfig.set("Direction", direction);
     }
 
     public void setLabelsColor(String labelsColor) {
         this.labelsColor = labelsColor;
+        userConfig.set("LabelsColor", this.labelsColor);
     }
 
     public void setValuesColor(String valuesColor) {
         this.valuesColor = valuesColor;
+        userConfig.set("ValuesColor", this.valuesColor);
     }
 
     // GETTERS
