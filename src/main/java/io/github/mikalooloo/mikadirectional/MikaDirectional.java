@@ -1,42 +1,68 @@
 package io.github.mikalooloo.mikadirectional;
-// My classes
-import io.github.mikalooloo.mikadirectional.config.UserHandler;
-import io.github.mikalooloo.mikadirectional.util.DirectionalUtil;
-import io.github.mikalooloo.mikadirectional.commands.DirectionalCommands;
-import io.github.mikalooloo.mikadirectional.config.DirectionalConfig;
-import io.github.mikalooloo.mikadirectional.events.DirectionalEvents;
+// Mika classes
+import io.github.mikalooloo.mikadirectional.util.MDirUtil;
+import io.github.mikalooloo.mikadirectional.config.MDirConfig;
+import io.github.mikalooloo.mikadirectional.config.MDirPlayerHandler;
+import io.github.mikalooloo.mikadirectional.commands.MDirCommands;
+import io.github.mikalooloo.mikadirectional.commands.MDirTabComplete;
+import io.github.mikalooloo.mikadirectional.events.MDirEvents;
 // Bukkit classes
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 // Java classes
-import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.UUID;
+import java.io.File;
 
+/**
+ * MikaDirectional is the main class of the Minecraft plugin Mika's Directional.
+ *
+ * @author  Mikalooloo
+ * @since   1.0
+ */
 public final class MikaDirectional extends JavaPlugin {
 
-    public String userFolderPath = "/players/";
-    public DirectionalUtil dUtil;
-    public DirectionalConfig dConfig;
-    public Map<UUID, UserHandler> users = new HashMap<>();
+    // VARIABLES
+    private String playerFolderPath = "/players/";
+    private MDirUtil mdUtil;
+    private MDirConfig mdConfig;
+    private Map<UUID, MDirPlayerHandler> playersMap = new HashMap<>();
 
+    // SETTERS
+    public void addPlayer(UUID playerID) {
+        playersMap.put(playerID, new MDirPlayerHandler(this, playerID));
+    }
+    public void removePlayer(UUID playerID) {
+        playersMap.get(playerID).savePlayerFile();
+        playersMap.remove(playerID);
+    }
+
+    // GETTERS
+    public String getPlayerFolderPath() { return playerFolderPath; }
+    public MDirUtil getMDUtil() { return mdUtil; }
+    public MDirConfig getMDConfig() { return mdConfig; }
+    public MDirPlayerHandler getPlayer(UUID playerID) {
+        return playersMap.get(playerID);
+    }
+
+    // OVERRIDE METHODS
     @Override
     public void onEnable() {
         // Plugin startup logic
         saveDefaultConfig();
 
         // Registering
-        this.dUtil = new DirectionalUtil(this);
-        this.dConfig = new DirectionalConfig(this);
-        getCommand("mikadirectional").setExecutor(new DirectionalCommands(this));
-        getServer().getPluginManager().registerEvents(new DirectionalEvents(this), this);
+        this.mdUtil = new MDirUtil(this);
+        this.mdConfig = new MDirConfig(this);
+        getCommand("mikadirectional").setExecutor(new MDirCommands(this));
+        getCommand("mikadirectional").setTabCompleter(new MDirTabComplete());
+        getServer().getPluginManager().registerEvents(new MDirEvents(this), this);
 
         // Create player folder
-        userFolderPath  = getDataFolder() + userFolderPath;
-        File file = new File(userFolderPath);
+        playerFolderPath  = getDataFolder() + playerFolderPath;
+        File file = new File(playerFolderPath);
         try {
-            file.mkdirs();
+            if (!file.mkdirs()) getLogger().info("");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,10 +71,5 @@ public final class MikaDirectional extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-
-    }
-
-    public void addUser(UUID user) {
-        users.put(user, new UserHandler(this, user));
     }
 }

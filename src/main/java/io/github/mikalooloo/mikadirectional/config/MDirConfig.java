@@ -1,26 +1,23 @@
 package io.github.mikalooloo.mikadirectional.config;
-
+// Mika classes
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 /**
- * DirectionalConfig handles the config files for Mika's Directional.
+ * MDirConfig handles the default config file, finding the values set within it and providing defaults if not found.
  *
  * @author  Mikalooloo
- * @since   1.0-SNAPSHOT
+ * @since   1.0
  */
-public class DirectionalConfig {
+public class MDirConfig {
 
-    // Config Settings
-    public boolean coords;
-    public boolean direction;
-    public String labelsColor;
-    public String valuesColor;
+    // VARIABLES
+    final private boolean coords;
+    final private boolean direction;
+    final private String labelsColor;
+    final private String valuesColor;
 
-    public DirectionalConfig(MikaDirectional plugin) {
+    // CONSTRUCTOR
+    public MDirConfig(MikaDirectional plugin) {
 
         if (plugin.getConfig().contains("Coords")) {
             coords = plugin.getConfig().getBoolean("Coords");
@@ -40,7 +37,7 @@ public class DirectionalConfig {
             labelsColor = plugin.getConfig().getString("LabelsColor");
         }
         else {
-            labelsColor = "#AAAAAA";
+            labelsColor = "#FFAA00";
         }
 
         if (plugin.getConfig().contains("ValuesColor")) {
@@ -51,4 +48,9 @@ public class DirectionalConfig {
         }
     }
 
+    // GETTERS
+    public boolean getDefaultCoords() { return coords; }
+    public boolean getDefaultDirection() { return direction; }
+    public String getDefaultLabelsColor() { return labelsColor; }
+    public String getDefaultValuesColor() { return valuesColor; }
 }
