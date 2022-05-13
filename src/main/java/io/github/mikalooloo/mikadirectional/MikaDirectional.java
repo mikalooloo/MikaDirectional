@@ -55,7 +55,7 @@ public final class MikaDirectional extends JavaPlugin {
         this.mdUtil = new MDirUtil(this);
         this.mdConfig = new MDirConfig(this);
         getCommand("mikadirectional").setExecutor(new MDirCommands(this));
-        getCommand("mikadirectional").setTabCompleter(new MDirTabComplete());
+        getCommand("mikadirectional").setTabCompleter(new MDirTabComplete(this));
         getServer().getPluginManager().registerEvents(new MDirEvents(this), this);
 
         // Create player folder

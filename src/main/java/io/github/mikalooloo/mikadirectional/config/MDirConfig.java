@@ -11,41 +11,18 @@ import io.github.mikalooloo.mikadirectional.MikaDirectional;
 public class MDirConfig {
 
     // VARIABLES
-    final private boolean coords;
-    final private boolean direction;
-    final private String labelsColor;
-    final private String valuesColor;
+    final private MikaDirectional plugin;
+    private boolean coords;
+    private boolean direction;
+    private String labelsColor;
+    private String valuesColor;
+    private boolean needUserPerms;
+    private boolean needReloadPerms;
 
     // CONSTRUCTOR
     public MDirConfig(MikaDirectional plugin) {
-
-        if (plugin.getConfig().contains("Coords")) {
-            coords = plugin.getConfig().getBoolean("Coords");
-        }
-        else {
-            coords = false;
-        }
-
-        if (plugin.getConfig().contains("Direction")) {
-            direction = plugin.getConfig().getBoolean("Direction");
-        }
-        else {
-            direction = false;
-        }
-
-        if (plugin.getConfig().contains("LabelsColor")) {
-            labelsColor = plugin.getConfig().getString("LabelsColor");
-        }
-        else {
-            labelsColor = "#FFAA00";
-        }
-
-        if (plugin.getConfig().contains("ValuesColor")) {
-            valuesColor = plugin.getConfig().getString("ValuesColor");
-        }
-        else {
-            valuesColor = "#FFFFFF";
-        }
+        this.plugin = plugin;
+        load();
     }
 
     // GETTERS
@@ -53,4 +30,43 @@ public class MDirConfig {
     public boolean getDefaultDirection() { return direction; }
     public String getDefaultLabelsColor() { return labelsColor; }
     public String getDefaultValuesColor() { return valuesColor; }
+    public boolean getNeedUserPerms() { return needUserPerms; }
+    public boolean getNeedReloadPerms() { return needReloadPerms; }
+
+    // METHODS
+    /**
+     * Retrieves the default config values from the config.yml file.
+     */
+    public void load() {
+        plugin.reloadConfig();
+        if (plugin.getConfig().contains("Coords")) {
+            coords = plugin.getConfig().getBoolean("Coords");
+        }
+        else { coords = false; }
+
+        if (plugin.getConfig().contains("Direction")) {
+            direction = plugin.getConfig().getBoolean("Direction");
+        }
+        else { direction = false; }
+
+        if (plugin.getConfig().contains("LabelsColor")) {
+            labelsColor = plugin.getConfig().getString("LabelsColor");
+        }
+        else { labelsColor = "#FFAA00"; }
+
+        if (plugin.getConfig().contains("ValuesColor")) {
+            valuesColor = plugin.getConfig().getString("ValuesColor");
+        }
+        else { valuesColor = "#FFFFFF"; }
+
+        if (plugin.getConfig().contains("NeedUserPerms")) {
+            needUserPerms = plugin.getConfig().getBoolean("NeedUserPerms");
+        }
+        else { needUserPerms = false; }
+
+        if (plugin.getConfig().contains("NeedReloadPerms")) {
+            needReloadPerms = plugin.getConfig().getBoolean("NeedReloadPerms");
+        }
+        else { needReloadPerms = false; }
+    }
 }

@@ -12,3 +12,9 @@ LabelsColor: "#FFAA00"
 # The color of the values (the numbers and direction name)
 # default: "#FFFFFF" (white)
 ValuesColor: "#FFFFFF"
+
+# Whether a player needs the "MikaDirectional.User" permission
+# to change, via commands, their individual values from the above default ones
+NeedUserPerms: false
+# Whether a player needs the "MikaDirectional.Reload" permission to reload the config via command
+NeedReloadPerms: true

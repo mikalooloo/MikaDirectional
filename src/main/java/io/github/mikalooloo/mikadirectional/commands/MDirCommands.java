@@ -35,6 +35,10 @@ public class MDirCommands implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String alias, String[] args) {
         if (command.getName().equalsIgnoreCase("mikadirectional") || command.getName().equalsIgnoreCase("md")) {
+            // true if you do not need user perms OR you do and you have them
+            boolean canUse = (!plugin.getMDConfig().getNeedUserPerms() || sender.hasPermission("MikaDirectional.User"));
+            boolean canReload = (!plugin.getMDConfig().getNeedReloadPerms() || sender.hasPermission("MikaDirectional.Reload"));
+
             // /md
             if (args.length <= 0) {
                 displayCommands(sender);
@@ -43,7 +47,7 @@ public class MDirCommands implements CommandExecutor {
                 MDirPlayerHandler player = plugin.getPlayer(p.getUniqueId());
 
                 // /md toggle
-                if (args[0].equalsIgnoreCase("toggle")) {
+                if (canUse && args[0].equalsIgnoreCase("toggle")) {
                     // /md toggle, /md toggle both
                     if (args.length == 1 || args[1].equalsIgnoreCase("both")) {
                         player.toggleCoords();
@@ -65,7 +69,7 @@ public class MDirCommands implements CommandExecutor {
                     else { displayError(sender); }
                 }
                 // /md setColor
-                else if (args[0].equalsIgnoreCase("setColor")) {
+                else if (canUse && args[0].equalsIgnoreCase("setColor")) {
                     // if not enough inputs
                     if (args.length < 3) { displayError(sender); }
                     // /md setColor labels [color]
@@ -86,6 +90,15 @@ public class MDirCommands implements CommandExecutor {
                         }
                         else { displayError(sender, "The hex value entered is not valid!"); }
                     }
+                }
+                else if (args[0].equalsIgnoreCase("reload")) {
+                    // not enough permissions
+                    if (plugin.getMDConfig().getNeedReloadPerms() && !sender.hasPermission("MikaDirectional.Reload")) {
+                        displayError(sender, "You do not have the permission to execute this command.");
+                        return true;
+                    }
+                    plugin.getMDConfig().load();
+                    sender.sendMessage("The config has been reloaded!");
                 }
                 // not valid command
                 else { displayError(sender); }
@@ -123,12 +136,23 @@ public class MDirCommands implements CommandExecutor {
      */
     private void displayCommands(CommandSender sender) {
         sender.sendMessage(ChatColor.ITALIC + "Mika's Directional Commands:");
+        // if you need this permission and don't have it
+        if (plugin.getMDConfig().getNeedUserPerms() && !sender.hasPermission("MikaDirectional.User")) {
+            sender.sendMessage(ChatColor.RED + "You do not have the permission to execute this command.");
+            return;
+        }
+        // otherwise
         sender.sendMessage(ChatColor.WHITE + "/md");
         sender.sendMessage(ChatColor.GRAY + "Displays commands");
         sender.sendMessage(ChatColor.WHITE + "/md toggle [coords | direction]");
         sender.sendMessage(ChatColor.GRAY + "Toggles the visibility of the coordinates or the facing direction");
         sender.sendMessage(ChatColor.WHITE + "/md setColor [labels | values] [color]");
         sender.sendMessage(ChatColor.GRAY + "Sets the color of the labels (X/Y/Z/Facing) or the values (numbers/directions)");
+        // if you need this permission and don't have it
+        if (plugin.getMDConfig().getNeedReloadPerms() && !sender.hasPermission("MikaDirectional.Reload")) { return; }
+        // otherwise
+        sender.sendMessage(ChatColor.WHITE + "/md reload");
+        sender.sendMessage(ChatColor.GRAY + "Refreshes the config file to reflect outside changes made since plugin started");
     }
 
     /**
