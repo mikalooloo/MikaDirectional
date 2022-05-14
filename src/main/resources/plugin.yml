@@ -12,8 +12,8 @@ commands:
     aliases: [md]
 permissions:
   MikaDirectional.User:
-    description: Use the /md toggle and /md setColor commands.
-    default: true
+    description: If permission needed, then can use the /md toggle and /md setColor commands.
+    default: op
   MikaDirectional.Reload:
-    description: Use the /md reload command.
+    description: If permission needed, then can use the /md reload command.
     default: op

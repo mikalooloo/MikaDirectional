@@ -52,18 +52,18 @@ public class MDirCommands implements CommandExecutor {
                     if (args.length == 1 || args[1].equalsIgnoreCase("both")) {
                         player.toggleCoords();
                         player.toggleDirection();
-                        sender.sendMessage("Coords are now " + (player.getCoords() ? "enabled" : "disabled" +
-                                " and direction is now " + (player.getDirection() ? "enabled!" : "disabled!")));
+                        sender.sendMessage("Coords are now " + ChatColor.BOLD + (player.getCoords() ? "enabled" : "disabled") +
+                                ChatColor.RESET + " and direction is now " + ChatColor.BOLD + (player.getDirection() ? "enabled!" : "disabled!"));
                     }
                     // /md toggle coords
                     else if (args[1].equalsIgnoreCase("coords")) {
                         player.toggleCoords();
-                        sender.sendMessage("Coords are now " + (player.getCoords() ? "enabled!" : "disabled!"));
+                        sender.sendMessage("Coords are now " + ChatColor.BOLD + (player.getCoords() ? "enabled!" : "disabled!"));
                     }
                     // /md toggle direction
                     else if (args[1].equalsIgnoreCase("direction")) {
                         player.toggleDirection();
-                        sender.sendMessage("Direction is now " + (player.getDirection() ? "enabled!" : "disabled!"));
+                        sender.sendMessage("Direction is now " + ChatColor.BOLD + (player.getDirection() ? "enabled!" : "disabled!"));
                     }
                     // not valid inputs
                     else { displayError(sender); }
@@ -74,19 +74,19 @@ public class MDirCommands implements CommandExecutor {
                     if (args.length < 3) { displayError(sender); }
                     // /md setColor labels [color]
                     else if (args[1].equalsIgnoreCase("labels")) {
-                        String newColor = args[2].startsWith("#") ? args[2] : NamedTextColor.NAMES.value(args[2]).asHexString();
+                        String newColor = convertToHex(args[2]);
                         if (isValidHexCode(newColor)) {
                             player.setLabelsColor(newColor);
-                            sender.sendMessage("Labels color is now set to " + newColor);
+                            sender.sendMessage("Labels color is now set to " + ChatColor.BOLD + args[2]);
                         }
                         else { displayError(sender, "The hex value entered is not valid!"); }
                     }
                     // /md setColor values [color]
                     else if (args[1].equalsIgnoreCase("values")) {
-                        String newColor = args[2].startsWith("#") ? args[2] : NamedTextColor.NAMES.value(args[2]).asHexString();
+                        String newColor = convertToHex(args[2]);
                         if (isValidHexCode(newColor)) {
                             player.setValuesColor(newColor);
-                            sender.sendMessage("Values color is now set to " + newColor);
+                            sender.sendMessage("Values color is now set to " + ChatColor.BOLD + args[2]);
                         }
                         else { displayError(sender, "The hex value entered is not valid!"); }
                     }
@@ -98,7 +98,7 @@ public class MDirCommands implements CommandExecutor {
                         return true;
                     }
                     plugin.getMDConfig().load();
-                    sender.sendMessage("The config has been reloaded!");
+                    sender.sendMessage("The config has been " + ChatColor.BOLD + "reloaded!");
                 }
                 // not valid command
                 else { displayError(sender); }
@@ -116,6 +116,7 @@ public class MDirCommands implements CommandExecutor {
     private void displayError(CommandSender sender) {
         sender.sendMessage(ChatColor.RED + "Something about that command was not right.\n");
         displayCommands(sender);
+        sender.sendMessage(ChatColor.RED + "That didn't go right. Refer to the above!\n");
     }
 
     /**
@@ -127,6 +128,7 @@ public class MDirCommands implements CommandExecutor {
     private void displayError(CommandSender sender, String customError) {
         sender.sendMessage(ChatColor.RED + customError + "\n");
         displayCommands(sender);
+        sender.sendMessage(ChatColor.RED + "That didn't go right. Refer to the above!\n");
     }
 
     /**
@@ -165,5 +167,24 @@ public class MDirCommands implements CommandExecutor {
         if (code == null) return false;
         Matcher codeMatcher = compiledRegex.matcher(code);
         return codeMatcher.matches();
+    }
+
+    /**
+     * Given a String, returns a String that starts with "#" if already a hex or a valid NamedTextColor, otherwise ""
+     *
+     * @param color   the String to find a hex code for
+     * @return        String set to color if color starts with "#", set to its hex code if color is a NamedTextColor, set to "" if not valid
+     */
+    private String convertToHex(String color) {
+        if (color.startsWith("#")) {
+            return color;
+        } else {
+            NamedTextColor test = NamedTextColor.NAMES.value(color);
+            if (test != null) {
+                return test.asHexString();
+            } else {
+                return "";
+            }
+        }
     }
 }
