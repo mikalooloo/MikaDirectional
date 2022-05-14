@@ -1,18 +1,18 @@
 package io.github.mikalooloo.mikadirectional.commands;
-// Mika classes
+// Mika packages
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
 import io.github.mikalooloo.mikadirectional.config.MDirPlayerHandler;
-// Bukkit classes
+// Bukkit packages
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 import org.bukkit.ChatColor;
-// Kyori classes
+// Kyori packages
 import net.kyori.adventure.text.format.NamedTextColor;
-// Jetbrains classes
+// Jetbrains packages
 import org.jetbrains.annotations.NotNull;
-// Java classes
+// Java packages
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -29,7 +29,7 @@ public class MDirCommands implements CommandExecutor {
     final private Pattern compiledRegex = Pattern.compile("^#([A-Fa-f\\d]{6}|[A-Fa-f\\d]{3})$");
 
     // CONSTRUCTOR
-    public MDirCommands(MikaDirectional plugin) { this.plugin = plugin; }
+    public MDirCommands(@NotNull MikaDirectional plugin) { this.plugin = plugin; }
 
     // OVERRIDE METHOD
     @Override

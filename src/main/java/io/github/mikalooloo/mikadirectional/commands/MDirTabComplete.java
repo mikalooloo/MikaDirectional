@@ -1,14 +1,14 @@
 package io.github.mikalooloo.mikadirectional.commands;
-// Bukkit classes
+// Bukkit packages
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.Command;
-// Kyori classes
+// Kyori packages
 import net.kyori.adventure.text.format.NamedTextColor;
-// Jetbrains classes
+// Jetbrains packages
 import org.jetbrains.annotations.NotNull;
-// Java classes
+// Java packages
 import java.util.List;
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class MDirTabComplete implements TabCompleter {
 
     // CONSTRUCTOR
 
-    public MDirTabComplete(MikaDirectional plugin) { this.plugin = plugin; }
+    public MDirTabComplete(@NotNull MikaDirectional plugin) { this.plugin = plugin; }
 
     // OVERRIDE METHOD
     @Override

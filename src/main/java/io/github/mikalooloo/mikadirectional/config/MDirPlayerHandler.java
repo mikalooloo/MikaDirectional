@@ -1,9 +1,11 @@
 package io.github.mikalooloo.mikadirectional.config;
-// Mika classes
+// Mika packages
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
-// Bukkit classes
+// Bukkit packages
 import org.bukkit.configuration.file.YamlConfiguration;
-// Java classes
+// Jetbrains packages
+import org.jetbrains.annotations.NotNull;
+// Java packages
 import java.util.UUID;
 import java.io.File;
 
@@ -28,7 +30,7 @@ public class MDirPlayerHandler {
     private String valuesColor;
 
     // CONSTRUCTOR
-    public MDirPlayerHandler(MikaDirectional plugin, UUID playerID) {
+    public MDirPlayerHandler(@NotNull MikaDirectional plugin, @NotNull UUID playerID) {
         this.plugin = plugin;
         this.playerID = playerID;
         playerFile = new File(plugin.getPlayerFolderPath() + playerID + ".yml");
@@ -41,8 +43,8 @@ public class MDirPlayerHandler {
     public void toggleCoords() { coords = !coords; }
     public void setDirection(boolean direction) { this.direction = direction; }
     public void toggleDirection() { direction = !direction; }
-    public void setLabelsColor(String labelsColor) { this.labelsColor = labelsColor; }
-    public void setValuesColor(String valuesColor) { this.valuesColor = valuesColor; }
+    public void setLabelsColor(@NotNull String labelsColor) { this.labelsColor = labelsColor; }
+    public void setValuesColor(@NotNull String valuesColor) { this.valuesColor = valuesColor; }
 
     // GETTERS
     public YamlConfiguration getPlayerFile() {

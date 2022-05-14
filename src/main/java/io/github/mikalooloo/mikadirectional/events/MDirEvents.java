@@ -1,12 +1,14 @@
 package io.github.mikalooloo.mikadirectional.events;
-// Mika classes
+// Mika packages
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
-// Bukkit classes
+// Bukkit packages
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+// Jetbrains packages
+import org.jetbrains.annotations.NotNull;
 
 /**
  * MDirEvents listens for and activates upon specified player events (movement, join, quit).
@@ -20,7 +22,7 @@ public class MDirEvents implements Listener {
     final private MikaDirectional plugin;
 
     // CONSTRUCTOR
-    public MDirEvents(MikaDirectional plugin) {
+    public MDirEvents(@NotNull MikaDirectional plugin) {
         this.plugin = plugin;
     }
 

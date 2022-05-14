@@ -1,14 +1,17 @@
 package io.github.mikalooloo.mikadirectional;
-// Mika classes
+// Mika packages
 import io.github.mikalooloo.mikadirectional.util.MDirUtil;
 import io.github.mikalooloo.mikadirectional.config.MDirConfig;
+import io.github.mikalooloo.mikadirectional.bstats.Metrics;
 import io.github.mikalooloo.mikadirectional.config.MDirPlayerHandler;
 import io.github.mikalooloo.mikadirectional.commands.MDirCommands;
 import io.github.mikalooloo.mikadirectional.commands.MDirTabComplete;
 import io.github.mikalooloo.mikadirectional.events.MDirEvents;
-// Bukkit classes
+// Bukkit packages
 import org.bukkit.plugin.java.JavaPlugin;
-// Java classes
+// Jetbrains packages
+import org.jetbrains.annotations.NotNull;
+// Java packages
 import java.util.Map;
 import java.util.HashMap;
 import java.util.UUID;
@@ -26,13 +29,15 @@ public final class MikaDirectional extends JavaPlugin {
     private String playerFolderPath = "/players/";
     private MDirUtil mdUtil;
     private MDirConfig mdConfig;
+    private Metrics mdMetrics;
     private Map<UUID, MDirPlayerHandler> playersMap = new HashMap<>();
 
+
     // SETTERS
-    public void addPlayer(UUID playerID) {
+    public void addPlayer(@NotNull UUID playerID) {
         playersMap.put(playerID, new MDirPlayerHandler(this, playerID));
     }
-    public void removePlayer(UUID playerID) {
+    public void removePlayer(@NotNull UUID playerID) {
         playersMap.get(playerID).savePlayerFile();
         playersMap.remove(playerID);
     }
@@ -52,8 +57,9 @@ public final class MikaDirectional extends JavaPlugin {
         saveDefaultConfig();
 
         // Registering
-        this.mdUtil = new MDirUtil(this);
-        this.mdConfig = new MDirConfig(this);
+        mdUtil = new MDirUtil(this);
+        mdConfig = new MDirConfig(this);
+        mdMetrics = new Metrics(this, 15182); // plugin id: 15182
         getCommand("mikadirectional").setExecutor(new MDirCommands(this));
         getCommand("mikadirectional").setTabCompleter(new MDirTabComplete(this));
         getServer().getPluginManager().registerEvents(new MDirEvents(this), this);

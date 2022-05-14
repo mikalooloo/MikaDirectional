@@ -1,14 +1,16 @@
 package io.github.mikalooloo.mikadirectional.util;
-// Mika classes
+// Mika packages
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
 import io.github.mikalooloo.mikadirectional.config.MDirPlayerHandler;
-// Bukkit classes
+// Bukkit packages
 import org.bukkit.entity.Player;
 import org.bukkit.Location;
-// Kyori classes
+// Kyori packages
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+// Jetbrains packages
+import org.jetbrains.annotations.NotNull;
 
 /**
  * MDirUtil handles updating a player's action bar.
@@ -22,7 +24,7 @@ public class MDirUtil {
     final private MikaDirectional plugin;
 
     // CONSTRUCTOR
-    public MDirUtil(MikaDirectional plugin) {
+    public MDirUtil(@NotNull MikaDirectional plugin) {
         this.plugin = plugin;
     }
 
@@ -64,7 +66,7 @@ public class MDirUtil {
      * @param player    the player whose action bar will be updated
      * @param message   the message that will be displayed
      */
-    private void updateActionBar(Player player, TextComponent message) {
+    private void updateActionBar(@NotNull Player player, @NotNull TextComponent message) {
         try {
             player.sendActionBar(message);
         } catch (Exception e) {

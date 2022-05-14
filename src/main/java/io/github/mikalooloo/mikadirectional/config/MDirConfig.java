@@ -1,6 +1,8 @@
 package io.github.mikalooloo.mikadirectional.config;
-// Mika classes
+// Mika packages
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
+// Jetbrains packages
+import org.jetbrains.annotations.NotNull;
 
 /**
  * MDirConfig handles the default config file, finding the values set within it and providing defaults if not found.
@@ -20,7 +22,7 @@ public class MDirConfig {
     private boolean needReloadPerms;
 
     // CONSTRUCTOR
-    public MDirConfig(MikaDirectional plugin) {
+    public MDirConfig(@NotNull MikaDirectional plugin) {
         this.plugin = plugin;
         load();
     }
