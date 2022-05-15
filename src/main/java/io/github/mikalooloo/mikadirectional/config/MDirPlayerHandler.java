@@ -1,19 +1,21 @@
 package io.github.mikalooloo.mikadirectional.config;
-// Mika packages
+
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
-// Bukkit packages
+
 import org.bukkit.configuration.file.YamlConfiguration;
-// Jetbrains packages
+
 import org.jetbrains.annotations.NotNull;
-// Java packages
+
 import java.util.UUID;
 import java.io.File;
 
 /**
- * MDirPlayerHandler handles the per player config files, creating files and
- * allowing other classes access to its contents.
+ * Handles the per player config files, creating the files and
+ * allowing other classes access to its contents
  *
  * @author  Mikalooloo
+ * @version 1.0
+ * @see MDirConfig
  * @since   1.0
  */
 public class MDirPlayerHandler {
@@ -23,7 +25,7 @@ public class MDirPlayerHandler {
     final private UUID playerID;
     final private File playerFile;
     final private YamlConfiguration playerConfig;
-    // Config Settings
+    // config settings
     private boolean coords;
     private boolean direction;
     private String labelsColor;
@@ -64,12 +66,8 @@ public class MDirPlayerHandler {
     }
 
     // METHODS
-    /**
-     * Creates a config file for new players and sets the values of the object's variables.
-     */
     private void createPlayer() {
-        if (!playerFile.exists()) {
-            // if new, set values as default
+        if (!playerFile.exists()) { // if new, set values as default
             coords = plugin.getMDConfig().getDefaultCoords();
             direction = plugin.getMDConfig().getDefaultDirection();
             labelsColor = plugin.getMDConfig().getDefaultLabelsColor();
@@ -81,8 +79,7 @@ public class MDirPlayerHandler {
             playerConfig.set("ValuesColor", valuesColor);
             savePlayerFile();
         }
-        else {
-            // if not new, set values from their file
+        else { // if not new, set values from their file
             coords = playerConfig.getBoolean("Coords");
             direction = playerConfig.getBoolean("Direction");
             labelsColor = playerConfig.getString("LabelsColor");
@@ -90,9 +87,6 @@ public class MDirPlayerHandler {
         }
     }
 
-    /**
-     * Saves the object's variables to its config file.
-     */
     public void savePlayerFile() {
         try {
             playerConfig.set("Coords", coords);

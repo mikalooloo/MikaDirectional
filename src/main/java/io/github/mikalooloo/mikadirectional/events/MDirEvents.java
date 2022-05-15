@@ -1,19 +1,21 @@
 package io.github.mikalooloo.mikadirectional.events;
-// Mika packages
+
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
-// Bukkit packages
+
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-// Jetbrains packages
+
 import org.jetbrains.annotations.NotNull;
 
 /**
- * MDirEvents listens for and activates upon specified player events (movement, join, quit).
+ * Listens for and activates upon specified player events (movement, join, quit)
+ * so config files can be created and action bars are updated
  *
  * @author  Mikalooloo
+ * @version 1.0
  * @since   1.0
  */
 public class MDirEvents implements Listener {
@@ -29,7 +31,7 @@ public class MDirEvents implements Listener {
     // EVENT HANDLER METHODS
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
-        if (event.hasChangedPosition()) {
+        if (event.hasChangedOrientation()) { // event.hasChangedPosition()
             plugin.getMDUtil().sendUpdate(event.getPlayer(), event.getTo());
         }
     }

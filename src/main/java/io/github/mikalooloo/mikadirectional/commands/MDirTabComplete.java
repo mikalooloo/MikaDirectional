@@ -1,23 +1,25 @@
 package io.github.mikalooloo.mikadirectional.commands;
-// Bukkit packages
+
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
+
 import org.bukkit.command.TabCompleter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.Command;
-// Kyori packages
+
 import net.kyori.adventure.text.format.NamedTextColor;
-// Jetbrains packages
+
 import org.jetbrains.annotations.NotNull;
-// Java packages
+
 import java.util.List;
 import java.util.ArrayList;
 
 /**
- * MDirTabComplete enables tab completion for the custom commands provided in MDirCommands,
+ * Enables tab completion for the custom commands provided in <code>MDirCommands</code>,
  * providing players with the next possible choices for whatever command they're typing!
  *
- * @see     MDirCommands
  * @author  Mikalooloo
+ * @version 1.0
+ * @see     MDirCommands
  * @since   1.0
  */
 public class MDirTabComplete implements TabCompleter {
@@ -26,7 +28,6 @@ public class MDirTabComplete implements TabCompleter {
     final private MikaDirectional plugin;
 
     // CONSTRUCTOR
-
     public MDirTabComplete(@NotNull MikaDirectional plugin) { this.plugin = plugin; }
 
     // OVERRIDE METHOD
@@ -34,7 +35,7 @@ public class MDirTabComplete implements TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender sender, Command command, @NotNull String alias, String[] args) {
         if (command.getName().equalsIgnoreCase("mikadirectional") || command.getName().equalsIgnoreCase("md")) {
             List<String> autoCompletes = new ArrayList<>();
-            // true if you do not need user perms OR you do and you have them
+            // true if (you do not need user perms) OR (you do and you have them)
             boolean canUse = (!plugin.getMDConfig().getNeedUserPerms() || sender.hasPermission("MikaDirectional.User"));
             boolean canReload = (!plugin.getMDConfig().getNeedReloadPerms() || sender.hasPermission("MikaDirectional.Reload"));
 

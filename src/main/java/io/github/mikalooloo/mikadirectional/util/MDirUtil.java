@@ -1,21 +1,22 @@
 package io.github.mikalooloo.mikadirectional.util;
-// Mika packages
+
 import io.github.mikalooloo.mikadirectional.MikaDirectional;
 import io.github.mikalooloo.mikadirectional.config.MDirPlayerHandler;
-// Bukkit packages
+
 import org.bukkit.entity.Player;
 import org.bukkit.Location;
-// Kyori packages
+
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
-// Jetbrains packages
+
 import org.jetbrains.annotations.NotNull;
 
 /**
- * MDirUtil handles updating a player's action bar.
+ * Handles updating a player's action bar
  *
  * @author  Mikalooloo
+ * @version 1.0
  * @since   1.0
  */
 public class MDirUtil {
@@ -60,12 +61,6 @@ public class MDirUtil {
         }
     }
 
-    /**
-     * Updates a player's action bar with a message.
-     *
-     * @param player    the player whose action bar will be updated
-     * @param message   the message that will be displayed
-     */
     private void updateActionBar(@NotNull Player player, @NotNull TextComponent message) {
         try {
             player.sendActionBar(message);
@@ -74,12 +69,6 @@ public class MDirUtil {
         }
     }
 
-    /**
-     * Given a yaw, returns a cardinal direction string.
-     *
-     * @param yaw   how much a player is looking left or right
-     * @return      String set to be a cardinal direction if calculated successfully; "" otherwise.
-     */
     private String getDirection(float yaw) {
         float rot = (yaw - 90) % 360;
         if (rot < 0) {
