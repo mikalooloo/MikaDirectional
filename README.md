@@ -6,7 +6,9 @@
 ![https://www.spigotmc.org/resources/102009/](https://img.shields.io/badge/minecraft%20version-1.18-brightgreen)
 
 ## Welcome!
-Mika's Directional is a 1.18 Minecraft plugin that adds a customizable action bar that includes your coordinates and facing direction.
-
-Documentation can be viewed [here](https://mikalooloo.github.io/).
+Mika's Directional is a 1.18 Minecraft plugin that adds a customizable action bar that includes your coordinates and facing direction.  
+  
+Documentation can be viewed [here](https://mikalooloo.bitbucket.io/0/).  
+  
+Have questions? Comments? Concerns? Check out this plugin's page on my website [here](https://mikalooloo.github.io/#/minecraft/plugins/0/).
 
